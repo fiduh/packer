@@ -1,11 +1,13 @@
+/*
 packer {
   required_plugins {
     amazon = {
       version = ">= 1.2.6"
-      source = "github.com/hashicorp/amazon"
+      source  = "github.com/hashicorp/amazon"
     }
   }
 }
+*/
 
 data "amazon-ami" "amazon-ami-lts" {
   filters = {
@@ -20,29 +22,30 @@ data "amazon-ami" "amazon-ami-lts" {
 
 
 variable "region" {
-  type = string
-  default = "us-east-1"
+  type        = string
+  default     = "us-east-1"
   description = "Default region"
 }
 
 variable "instance_type" {
-  type = string
-  default = "t2.micro"
+  type        = string
+  default     = "t2.micro"
   description = "Default instance type"
 }
 
 source "amazon-ebs" "aws-gitlab-ami" {
-  region = var.region
-  ami_name  = "amazon_gitlab_ami {{timestamp}}"
+  region        = var.region
+  source_ami = data.amazon-ami.amazon-ami-lts.id
+  ami_name      = "Gitlab-Runner-ami-{{timestamp}}"
   instance_type = var.instance_type
-  ssh_username         = "ubuntu"
+  ssh_username  = "ubuntu"
 }
 
 build {
   sources = ["source.amazon-ebs.aws-gitlab-ami"]
 
   provisioner "shell" {
-    inline = ["echo GitLab"]
+    script = "./gitlab-runner-provision.sh"
   }
 }
 
