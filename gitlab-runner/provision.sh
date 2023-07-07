@@ -1,9 +1,5 @@
 #! /bin/bash
 
-# Read the GitLab URL we are registering for and the Gitlab token
-#URL=$1
-#GITLAB_REG_TOKEN=$2
-
 # Update apt packages
 sudo apt-get update -y && sudo apt-get upgrade -y
 
@@ -25,7 +21,7 @@ echo \
 sudo apt-get  update -y
 
 # Install docker
-sudo apt install docker.io -y
+sudo apt-get install docker.io -y
 
 sudo systemctl enable docker --now
 
@@ -97,6 +93,8 @@ RestartSec=120
 [Install]
 WantedBy=multi-user.target
 EOF
+
+
 
 # Move SystemD service unit file to /etc/systemd/system
 #sudo rm -rf /etc/systemd/system/gitlab-runner.service --interactive=never

@@ -1,9 +1,5 @@
 #! /bin/bash
 
-# Read the GitLab URL we are registering for and the Gitlab token
-URL=$1
-GITLAB_REG_TOKEN=$2
-
 # Update apt packages
 sudo apt-get update -y && sudo apt-get upgrade -y
 
@@ -23,7 +19,7 @@ echo \
 sudo apt-get  update -y
 
 # Install docker
-sudo apt install docker.io -y
+sudo apt-get install docker.io -y
 
 sudo systemctl enable docker --now
 
@@ -50,8 +46,8 @@ EOF
 cat > ~/register-gitlab-runner.sh << EOF
 /usr/local/bin/gitlab-runner register                          \
   --non-interactive                                            \
-  --url "${URL}"                                \
-  --token "${GITLAB_REG_TOKEN}"                     \
+  --url "URL"                                \
+  --token "TOKEN"                     \
   --request-concurrency 1                                      \
   --executor "docker"                                   \
   --description "Some Runner Description"                      \
