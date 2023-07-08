@@ -4,6 +4,18 @@
 
 Gitlab CI gives users an option to selfhost Gitlab Runners
 
+### Quick Start 
+clone this repo
+git clone https://
+
+build the Gitlab runner AMI using Packer:
+cd packer/gitlab-runner
+packer build (aws cli should be logged in) 
+
+Navigate to the AWS Console, Check the EC2 -> AMIs section, confirm that the new Gitlab runner AMI has been built.
+* launch a new EC2 instance using the AMI ID found in the previous step. 
+
+Use this script in the User data section of the EC2's instance launch options to replace the registration credentials of gitlab runner 
 
 ### Prerequisite 
 * a [gitlab.com](gitlab.com) account
