@@ -16,7 +16,7 @@ packer build
 Navigate to the AWS Console, Check the EC2 -> AMIs section, and confirm that the new Gitlab runner AMI has been built.
 * Launch a new EC2 instance using the AMI ID found in the previous step. 
 
-Use this script in the User data section of the EC2's instance launch options to replace the registration credentials of gitlab runner 
+Use this script in the User data section of the EC2's instance launch options to replace the registration credentials of GitLab runner 
 
 ### Prerequisite 
 * a [gitlab.com](gitlab.com) SaaS account or self hosted instance
