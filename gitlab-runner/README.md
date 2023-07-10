@@ -7,7 +7,7 @@ Basic knowledge of Terraform, AWS EC2, Packer, and GitLab CI is assumed.
 This reference architecture gives practical steps to spin up a cost-effective, automated GitLab Runner setup that scales based on demand and also offers the possibility to switch off the entire stack at predefined time intervals to save cost. 
 Gitlab CI gives users an option to selfhost Gitlab Runners
 
-## Bake an Amazon Machine Image
+## Bake an Amazon Machine Image (AMI)
 
 Packer uses an HCL config template that defines the entire life cycle of creating customized AMI images. Code snippets below: 
 https://github.com/osemiduh/packer/blob/6af057627141d69a93c67070f90460d41bad39b2/gitlab-runner/gitlab-runner.pkr.hcl#L2-L40
