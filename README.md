@@ -13,7 +13,6 @@ build the Gitlab runner AMI using Packer:
 ``
 cd packer/gitlab-runner
 packer build 
-
 ``
 
 (aws cli should be logged in) 
