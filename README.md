@@ -9,10 +9,13 @@ clone this repo
 `git clone https://https://github.com/osemiduh/packer.git`
 
 build the Gitlab runner AMI using Packer:
+
 ``
 cd packer/gitlab-runner
 packer build 
+
 ``
+
 (aws cli should be logged in) 
 
 Navigate to the AWS Console, Check the EC2 -> AMIs section, and confirm that the new Gitlab runner AMI has been built.
