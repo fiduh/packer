@@ -1,16 +1,16 @@
 # Gitlab Runner
 
-### Reference architecture for Automating the templating of a scalable, and cost-effective GitLab Runner AMI on AWS with Packer
+### Reference architecture for Automating the templating of a scalable, and cost-effective GitLab Runner on AWS with Packer
 
 Basic knowledge of Terraform, AWS EC2, Packer, and GitLab CI is assumed.
 
-This reference architecture gives pratical steps to spin up a cost-effective, automated GitLab Runner setup that scales in/out based on demand and also offers the possibility to switch off the entire stack at predefined time intervals to save cost. 
+This reference architecture gives practical steps to spin up a cost-effective, automated GitLab Runner setup that scales based on demand and also offers the possibility to switch off the entire stack at predefined time intervals to save cost. 
 Gitlab CI gives users an option to selfhost Gitlab Runners
 
-Packer uses a HCL config template that defines the entire life cycle of creating customised AMI images. Code snippets below: 
+Packer uses an HCL config template that defines the entire life cycle of creating customized AMI images. Code snippets below: 
 
 
-packer build packer-build.pkr.hcl
+`packer build packer-build.pkr.hcl`
 
 The command above spins up a temporary EC2 instance, configures it with a provisioning script (./provision.sh, in this case), AMI is saved and EC2 instance destroyed 
 
