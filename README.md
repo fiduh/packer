@@ -15,7 +15,7 @@ cd packer/gitlab-runner
 packer build 
 ``
 
-(aws cli should be logged in) 
+(You must authenticate using your AWS secret key and user credentials either in your development environment or CI/CD machine) 
 
 Navigate to the AWS Console, Check the EC2 -> AMIs section, and confirm that the new Gitlab runner AMI has been built.
 * Launch a new EC2 instance using the AMI ID found in the previous step. 
