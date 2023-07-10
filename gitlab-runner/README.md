@@ -11,13 +11,13 @@ Packer uses an HCL config template that defines the entire life cycle of creatin
 https://github.com/osemiduh/packer/blob/6af057627141d69a93c67070f90460d41bad39b2/gitlab-runner/gitlab-runner.pkr.hcl#L2-L40
 
 
-`packer build packer-build.pkr.hcl`
+`$ packer build gitlab-runner.pkr.hcl`
 
-The command above spins up a temporary EC2 instance, configures it with a provisioning script (./provision.sh, in this case), AMI is saved and EC2 instance destroyed 
+The command above spins up a temporary EC2 instance, configures it with a provisioning script (`./gitlab-runner-provision.sh`, in this case), AMI is saved and the EC2 instance destroyed 
 
 ## Installing and Configuring GitLab Runners
-To successfully run GitLab runners, it's executors (e.g. Docker) and subsequently pipeline jobs in EC2 machines, we'd need some binary dependencies, environment setup, configuration, etc.
+To successfully run GitLab runners, its executors (e.g. Docker), and subsequently pipeline jobs in EC2 machines, we need some binary dependencies, environment setup, configuration, etc.
+
+To keep things repeatable, we can define all the steps in a shell script, which could then be used by Packer to prepare our custom GitLab Runner AMI, `gitlab-runner-provision.sh`. It'll be given the below list of commands to install, configure, and prepare the Runners - along with the repositories they'll register with.
 
 https://github.com/osemiduh/packer/blob/05be570178619b0a32c641ad3d61a2f0c852b099/gitlab-runner/gitlab-runner-provision.sh#L1-L104
-
-To keep things repeatable, we can define all the steps in a shell script, which could then be used by Packer to prepare our custom GitLab Runner AMI, provision.sh. It'll be given the below list of commands to install, configure, and prepare the Runners - along with the repositories they'll register with.
