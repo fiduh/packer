@@ -17,4 +17,6 @@ The command above spins up a temporary EC2 instance, configures it with a provis
 ## Installing and Configuring GitLab Runners
 To successfully run GitLab runners, it's executors (e.g. Docker) and subsequently pipeline jobs in EC2 machines, we'd need some binary dependencies, environment setup, configuration, etc.
 
+https://github.com/osemiduh/packer/blob/05be570178619b0a32c641ad3d61a2f0c852b099/gitlab-runner/gitlab-runner-provision.sh#L1-L104
+
 To keep things repeatable, we can define all the steps in a shell script, which could then be used by Packer to prepare our custom GitLab Runner AMI, provision.sh. It'll be given the below list of commands to install, configure, and prepare the Runners - along with the repositories they'll register with.
