@@ -17,7 +17,7 @@ Navigate to the AWS Console, Check the EC2 -> AMIs section, and confirm that the
 * Launch a new EC2 instance using the AMI ID found in the previous step. 
 
 Use this script in the User data section of the EC2's instance launch options to replace the registration credentials of GitLab runner 
-```
+``` bash
 #!/bin/bash
 
 sudo sed -i  "s+TOKEN+glrt-<Insert Registration Token Here>+g" /usr/bin/register-gitlab-runner.sh
