@@ -35,7 +35,7 @@ build {
   sources = ["source.amazon-ebs.aws-gitlab-ami"]
 
   provisioner "shell" {
-    script = "./provision.sh"
+    script = "./gitlab-runner-provision.sh"
   }
 }
 
