@@ -1,3 +1,12 @@
+packer {
+  required_plugins {
+    amazon = {
+      version = ">= 1.2.6"
+      source  = "github.com/hashicorp/amazon"
+    }
+  }
+}
+
 
 data "amazon-ami" "amazon-ami-lts" {
   filters = {
@@ -25,7 +34,7 @@ variable "instance_type" {
 
 source "amazon-ebs" "aws-gitlab-ami" {
   region        = var.region
-  source_ami = data.amazon-ami.amazon-ami-lts.id
+  source_ami    = data.amazon-ami.amazon-ami-lts.id
   ami_name      = "Gitlab-Runner-ami-{{timestamp}}"
   instance_type = var.instance_type
   ssh_username  = "ubuntu"
