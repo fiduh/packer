@@ -13,7 +13,10 @@ Packer uses an HCL config template that defines the entire life cycle of creatin
 https://github.com/osemiduh/packer/blob/6af057627141d69a93c67070f90460d41bad39b2/gitlab-runner/gitlab-runner.pkr.hcl#L2-L40
 
 
-`bash packer build gitlab-runner.pkr.hcl`
+```bash 
+packer build gitlab-runner.pkr.hcl
+
+```
 
 The command above spins up a temporary EC2 instance, configures it with a provisioning script (`./gitlab-runner-provision.sh`, in this case), AMI is saved and the EC2 instance destroyed 
 
