@@ -10,7 +10,59 @@ Gitlab CI gives users an option to selfhost Gitlab Runners
 ## Bake an Amazon Machine Image (AMI)
 
 Packer uses an HCL config template that defines the entire life cycle of creating customized AMI images. Code snippets below: 
-https://github.com/osemiduh/packer/blob/6af057627141d69a93c67070f90460d41bad39b2/gitlab-runner/gitlab-runner.pkr.hcl#L2-L40
+
+```hcl
+packer {
+  required_plugins {
+    amazon = {
+      version = ">= 1.2.6"
+      source  = "github.com/hashicorp/amazon"
+    }
+  }
+}
+
+
+data "amazon-ami" "amazon-ami-lts" {
+  filters = {
+    virtualization-type = "hvm"
+    name                = "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*"
+    root-device-type    = "ebs"
+  }
+  owners      = ["099720109477"]
+  most_recent = true
+  region      = "us-east-1"
+}
+
+
+variable "region" {
+  type        = string
+  default     = "us-east-1"
+  description = "Default region"
+}
+
+variable "instance_type" {
+  type        = string
+  default     = "t2.micro"
+  description = "Default instance type"
+}
+
+source "amazon-ebs" "aws-gitlab-ami" {
+  region        = var.region
+  source_ami    = data.amazon-ami.amazon-ami-lts.id
+  ami_name      = "Gitlab-Runner-ami-{{timestamp}}"
+  instance_type = var.instance_type
+  ssh_username  = "ubuntu"
+}
+
+build {
+  sources = ["source.amazon-ebs.aws-gitlab-ami"]
+
+  provisioner "shell" {
+    script = "./gitlab-runner-provision.sh"
+  }
+}
+
+```
 
 
 ```bash 
