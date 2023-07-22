@@ -12,15 +12,6 @@ Gitlab CI gives users an option to selfhost Gitlab Runners
 Packer uses an HCL config template that defines the entire life cycle of creating customized AMI images. Code snippets below: 
 
 ```hcl
-packer {
-  required_plugins {
-    amazon = {
-      version = ">= 1.2.6"
-      source  = "github.com/hashicorp/amazon"
-    }
-  }
-}
-
 
 data "amazon-ami" "amazon-ami-lts" {
   filters = {
@@ -33,24 +24,11 @@ data "amazon-ami" "amazon-ami-lts" {
   region      = "us-east-1"
 }
 
-
-variable "region" {
-  type        = string
-  default     = "us-east-1"
-  description = "Default region"
-}
-
-variable "instance_type" {
-  type        = string
-  default     = "t2.micro"
-  description = "Default instance type"
-}
-
 source "amazon-ebs" "aws-gitlab-ami" {
-  region        = var.region
+  region        = "us-east-1"
   source_ami    = data.amazon-ami.amazon-ami-lts.id
   ami_name      = "Gitlab-Runner-ami-{{timestamp}}"
-  instance_type = var.instance_type
+  instance_type = "t2.micro"
   ssh_username  = "ubuntu"
 }
 
