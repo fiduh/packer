@@ -1,4 +1,32 @@
 # Server Templating with HasiCorp Packer
+Automate Image Builds Across Platforms
+Packer Eliminates Manual Steps for Golden Image Creation
+
+### Core components of packer
+- Packer builds images using a template and templates can be built using HCL2
+- Templates defines settings using blocks:
+ - Original image to use "source"
+ - Where to build the image "AWS, VMware, OpenStack"
+ - Files to upload to the image "Scripts, packages, certificates"
+ - Installation and configuration of Machine image
+ - Data to retrieve when building
+
+ Source > Variables > Communicators > Builders > Provisioner > Post-Processors
+
+ ### Source:
+ Defines the initial image to use to create your customized image. Any defined source is reusable within build blocks. 
+
+ ```bash
+source "azure-arm" "azure-arm-centos-7" {
+    image_offer = "CentOS"
+    image_publisher = "OpenLogic"
+    image_sku = "7.7"
+    os_type = "Linux"
+    subscription_id = "${var.azure_subscription_id}"
+    }
+ ```
+
+
 
 ### Quick Start 
 clone this repo
