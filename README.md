@@ -26,6 +26,50 @@ source "azure-arm" "azure-arm-centos-7" {
     }
  ```
 
+### Builders:
+Builders are responsible for creating machines from the base image, customizing the image as defined, and then creating a resulting image.
+- Builders are plugins thar are developed to work with specific platform (i.e., AWS, Azure, Docker, etc.)
+
+```bash
+build {
+    source = [""]
+
+    provisioner "file" {
+        destination = ""
+        source = ""
+    }
+}
+```
+
+### Post-Processors
+- Post-processors are executed after the image is built and provisioners are complete. It can be used to upload artifacts, execute uploaded scripts, validate installs, or import an image.
+
+### Communicators
+- Communicators are the mechanism that Packer will use to communicate with the new build and upload files, execute scripts. etc.
+- Two Communicators available today:
+    - SSH
+    - WinRM
+
+### Variables
+- HashiCorp Packer can use variables to define defaults during a build
+- Variables can be declared in a .pkrvars.hcl file or .auto.pkrvars.hcl, the defualt .pkr file, or any other file name if referenced when executing the build.
+- You can also declare individually using the --var option
+
+```bash
+# Variable declaration block:
+
+variable "image_id" {
+type = string
+description = "The id of the machine image (AMI) to use for the server."
+default: "ami-1234abcd"
+
+validation {
+    condition = length(var.image_id) > 4 && substr(var.image_id, 0, 4) == "ami-"
+    error_message = "The image_id value must be a valid AMI id, starting with \"ami-\"."
+    }
+}
+
+```
 
 
 ### Quick Start 
