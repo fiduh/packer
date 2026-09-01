@@ -38,6 +38,11 @@ source "amazon-ebs" "aws-gitlab-ami" {
   ami_name      = "Gitlab-Runner-ami-{{timestamp}}"
   instance_type = var.instance_type
   ssh_username  = "ubuntu"
+  tags = {
+    "Name" = "PackerUbuntuImage"
+    "Environment" = "Production"
+    "Created-by" = "Packer"
+  }
 }
 
 build {

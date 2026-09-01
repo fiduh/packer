@@ -17,13 +17,19 @@ Packer Eliminates Manual Steps for Golden Image Creation
  Defines the initial image to use to create your customized image. Any defined source is reusable within build blocks. 
 
  ```bash
-source "azure-arm" "azure-arm-centos-7" {
-    image_offer = "CentOS"
-    image_publisher = "OpenLogic"
-    image_sku = "7.7"
-    os_type = "Linux"
-    subscription_id = "${var.azure_subscription_id}"
-    }
+source "amazon-ebs" "aws-gitlab-ami" {
+  region        = var.region
+  ami_regions = ["us-west-2", "us-east-1", "eu-central-1"] # Copy image to multiple regions
+  source_ami    = data.amazon-ami.amazon-ami-lts.id
+  ami_name      = "Gitlab-Runner-ami-{{timestamp}}"
+  instance_type = var.instance_type
+  ssh_username  = "ubuntu"
+  tags = {
+    "Name" = "PackerUbuntuImage"
+    "Environment" = "Production"
+    "Created-by" = "Packer"
+  }
+}
  ```
 
 ### Builders:
@@ -32,12 +38,11 @@ Builders are responsible for creating machines from the base image, customizing 
 
 ```bash
 build {
-    source = [""]
+  sources = ["source.amazon-ebs.aws-gitlab-ami"]
 
-    provisioner "file" {
-        destination = ""
-        source = ""
-    }
+  provisioner "shell" {
+    script = "./gitlab-runner-provision.sh"
+  }
 }
 ```
 
